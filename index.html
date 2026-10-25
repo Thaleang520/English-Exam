@@ -4,7 +4,7 @@
 <title>English Tenses Exam</title>
 <link rel="icon" type="image/png" href="Piece of Cake.png">
 <meta name="theme-color" content="#07050f">
-<!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300f0ff'/%3E%3Cstop%20offset='1'%20stop-color='%23ff2bd6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d='M0%200H52L64%2012V64H12L0%2052Z'%20fill='url(%23g)'/%3E%3Cpath%20d='M16%2017H48V26H36V50H28V26H16Z'%20fill='%2305030d'/%3E%3C/svg%3E"> -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300f0ff'/%3E%3Cstop%20offset='1'%20stop-color='%23ff2bd6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d='M0%200H52L64%2012V64H12L0%2052Z'%20fill='url(%23g)'/%3E%3Cpath%20d='M16%2017H48V26H36V50H28V26H16Z'%20fill='%2305030d'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap">
 <style>
 :root{--font-body:"Rajdhani","Segoe UI",system-ui,sans-serif;--font-head:"Orbitron",sans-serif;--font-mono:"Share Tech Mono",Consolas,monospace;color-scheme:light dark;--bg:#f3f4fb;--card:#ffffff;--ink:#1b1f3b;--mut:#6a7090;--bd:#e4e6f3;--ac:#5b5bf0;--ac2:#a259ff;--ok:#16a34a;--okb:#dcfce7;--bad:#dc2626;--badb:#fee2e2;--selb:#ebebff;--sh:0 10px 30px rgba(60,60,140,.12)}
@@ -451,6 +451,33 @@ body{min-height:100dvh}
 
 /* last page has no Submit button: the clock stands alone and the exam ends when it reaches 00:00 */
 @media (max-width:640px){.foot>.clock:last-child{grid-column:1/-1;justify-self:center}}
+
+/* ================= SECOND PAGE: BETTER LAYOUT ================= */
+.intro{max-width:780px;margin:22px auto 0;padding:40px 28px 34px;
+  background:radial-gradient(ellipse 70% 220px at 50% 0,color-mix(in srgb,var(--c1) 20%,transparent),transparent 70%),var(--card)}
+.intro h2{font-size:clamp(1.5rem,5.4vw,2.6rem);margin:16px 0 8px;line-height:1.1}
+.intro .sub{margin:0 auto 16px;max-width:460px;color:var(--mut);font-size:1.1rem}
+.exq{display:inline-block;max-width:100%;padding:10px 18px;font-family:var(--font-mono);font-size:.98rem;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid color-mix(in srgb,var(--c1) 40%,transparent);border-left:3px solid var(--c1)}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px auto 22px;max-width:520px}
+.mini div{padding:12px 6px;background:rgba(255,255,255,.03);border:1px solid var(--bd);border-top:2px solid var(--c1);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.mini b{display:block;font-family:var(--font-head);font-size:1.9rem;line-height:1.1;color:var(--c1);text-shadow:0 0 14px var(--c1)}
+.mini span{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.cw{display:flex;flex-direction:column;align-items:center;gap:10px;margin:8px 0 6px}
+.cw small{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.pkh{margin-top:30px}
+.pk{min-width:112px}
+.intro .rules{max-width:none;margin:28px 0 26px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;counter-reset:r;text-align:left}
+.intro .rules li{counter-increment:r;padding:13px 14px 13px 50px;background:rgba(255,255,255,.03);border:1px solid var(--bd);border-left:3px solid var(--c1);color:var(--ink);font-weight:600;line-height:1.35}
+.intro .rules li::before{content:counter(r,decimal-leading-zero);left:14px;top:12px;width:auto;height:auto;border-radius:0;background:none;font-family:var(--font-mono);font-size:1rem;font-weight:700;color:var(--c1);text-shadow:0 0 10px var(--c1)}
+.intro.enter>:nth-child(3){animation-name:up;animation-delay:.18s}
+.intro.enter>:nth-child(4){animation-delay:.24s}
+.intro.enter>:nth-child(5){animation-name:pop;animation-delay:.3s}
+.intro.enter>:nth-child(6){animation-delay:.4s}
+.intro.enter>:nth-child(7){animation-delay:.48s}
+.intro.enter>:nth-child(8){animation-delay:.54s}
+.intro.enter>:nth-child(9){animation-delay:.62s}
+.intro.enter>:nth-child(10){animation-delay:.7s}
+@media (max-width:640px){.intro{padding:28px 14px 24px}.intro .sub{font-size:1rem}.mini{gap:8px}.mini b{font-size:1.5rem}.mini span{font-size:.62rem}.exq{font-size:.88rem}}
 </style></head>
 <body><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
 <script>
@@ -475,7 +502,7 @@ const CONFIG={
   yellowAtPercent:70,      // timer is YELLOW below this %, GREEN above it
   brand:"PIECE OF CAKE", logoLetter:"PC",
   logoImages:["Piece of Cake.png"],   // your picture, saved next to this file (first name that exists is used). If none exists the letters above are shown
-  navLabel:"v2.0 // Grammar exam",
+  navLabel:"v2.0",
   tagLine:"System online // Grammar practice",
   heroTitle:"Master English", heroWord:"Tenses",
   chips:["I play","She is playing","They played","We will play"]   // floating words (wide screens)
@@ -606,10 +633,12 @@ function introScreen(){            // the screen with the Start button and page 
    ?[`${TOTAL} questions on ${CONFIG.pages} pages, ${CONFIG.perPage} per page`,`You have ${MINUTES} minutes for each page`,"When time is up, the next page opens by itself","The exam ends by itself when time runs out on the last page","You cannot go back to a finished page","After each answer you see if it is correct or wrong"]
    :[`${CONFIG.perPage} questions on page ${sel+1}`,`You have ${MINUTES} minutes for this page`,"When time is up, the exam ends and shows your score","After each answer you see if it is correct or wrong"];
   app.innerHTML=`<div style="${cv(T)}"><div class="th" style="padding-top:6px"><button class="ghost" data-a="home">← Home</button></div>
-  <div class="intro${fresh?" enter":""}"><span class="tag">Ready?</span><h2>${T.name} Exam</h2><div class="clock big">${clock(SECS)}</div>
+  <div class="intro${fresh?" enter":""}"><span class="tag">Ready?</span><h2>${T.name} Exam</h2><p class="sub">${T.d}</p><div class="exq">${T.ex}</div>
+  <div class="mini"><div><b>${sel=="all"?TOTAL:CONFIG.perPage}</b><span>Questions</span></div><div><b>${sel=="all"?CONFIG.pages:1}</b><span>${sel=="all"?"Pages":"Page"}</span></div><div><b>${MINUTES}</b><span>Min per page</span></div></div>
+  <div class="cw"><small>Time per page</small><div class="clock big">${clock(SECS)}</div></div>
   <div class="pkh">Choose a page</div>
   <div class="pks">${pick("all","All pages",TOTAL+" questions")}${pageNums.map(i=>pick(i,"Page "+(i+1),"Q "+(i*CONFIG.perPage+1)+"–"+(i+1)*CONFIG.perPage)).join("")}</div>
-  <ul>${rules.map(r=>`<li>${r}</li>`).join("")}</ul>
+  <ul class="rules">${rules.map(r=>`<li>${r}</li>`).join("")}</ul>
   <span class="cta-wrap"><button class="cta-btn start-btn" data-a="start"><span class="st"><b>${sel=="all"?"Start Full Exam":"Start Page "+(sel+1)}</b><small>${sel=="all"?TOTAL+" questions · "+MINUTES+" min per page":CONFIG.perPage+" questions · "+MINUTES+" min"}</small></span><span class="cta-a">→</span></button></span></div></div>`;
 }
 
