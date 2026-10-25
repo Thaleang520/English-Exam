@@ -2,11 +2,9 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>English Tenses Exam</title>
-<meta name="description" content="Practise English tenses with timed exams.">
-<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap">
 <style>
-:root{--font-body:"Rajdhani","Segoe UI",system-ui,-apple-system,"Ubuntu","Noto Sans","DejaVu Sans","Liberation Sans",Arial,sans-serif;--font-head:"Orbitron","Bahnschrift","Segoe UI","Ubuntu","Noto Sans","DejaVu Sans",Arial,sans-serif;--font-mono:"Share Tech Mono",Consolas,"Cascadia Mono","DejaVu Sans Mono","Liberation Mono","Ubuntu Mono",monospace;color-scheme:light dark;--bg:#f3f4fb;--card:#ffffff;--ink:#1b1f3b;--mut:#6a7090;--bd:#e4e6f3;--ac:#5b5bf0;--ac2:#a259ff;--ok:#16a34a;--okb:#dcfce7;--bad:#dc2626;--badb:#fee2e2;--selb:#ebebff;--sh:0 10px 30px rgba(60,60,140,.12)}
+:root{--font-body:"Rajdhani","Segoe UI",system-ui,sans-serif;--font-head:"Orbitron",sans-serif;--font-mono:"Share Tech Mono",Consolas,monospace;color-scheme:light dark;--bg:#f3f4fb;--card:#ffffff;--ink:#1b1f3b;--mut:#6a7090;--bd:#e4e6f3;--ac:#5b5bf0;--ac2:#a259ff;--ok:#16a34a;--okb:#dcfce7;--bad:#dc2626;--badb:#fee2e2;--selb:#ebebff;--sh:0 10px 30px rgba(60,60,140,.12)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1020;--card:#171a31;--ink:#eef0ff;--mut:#9ba1c9;--bd:#272b4d;--ac:#8b8bff;--ac2:#c084fc;--ok:#4ade80;--okb:#12301f;--bad:#f87171;--badb:#3b1a1f;--selb:#23274d;--sh:0 10px 30px rgba(0,0,0,.4)}}
 :root[data-theme="dark"]{--bg:#0e1020;--card:#171a31;--ink:#eef0ff;--mut:#9ba1c9;--bd:#272b4d;--ac:#8b8bff;--ac2:#c084fc;--ok:#4ade80;--okb:#12301f;--bad:#f87171;--badb:#3b1a1f;--selb:#23274d;--sh:0 10px 30px rgba(0,0,0,.4)}
 *{box-sizing:border-box}
@@ -181,7 +179,7 @@ body::after{animation:drift 20s ease-in-out infinite alternate-reverse}
 /* ================= CYBERPUNK THEME =================
    CHANGE COLOURS HERE: --ac (main neon), --ac2 (second neon), --bg (background), --card (panels).
    :root.alt is the second palette used by the round button in the top-right corner. */
-:root,:root:not([data-theme="light"]),:root[data-theme]{--font-body:"Rajdhani","Segoe UI",system-ui,-apple-system,"Ubuntu","Noto Sans","DejaVu Sans","Liberation Sans",Arial,sans-serif;--font-head:"Orbitron","Bahnschrift","Segoe UI","Ubuntu","Noto Sans","DejaVu Sans",Arial,sans-serif;--font-mono:"Share Tech Mono",Consolas,"Cascadia Mono","DejaVu Sans Mono","Liberation Mono","Ubuntu Mono",monospace;--bg:#07050f;--card:#0e0a20;--ink:#e6f7ff;--mut:#8f8ab8;--bd:#2b2060;--ac:#00f0ff;--ac2:#ff2bd6;--ok:#39ff88;--okb:rgba(57,255,136,.12);--bad:#ff3b6b;--badb:rgba(255,59,107,.14);--selb:rgba(0,240,255,.1);--sh:0 0 22px rgba(0,240,255,.12);color-scheme:dark}
+:root,:root:not([data-theme="light"]),:root[data-theme]{--font-body:"Rajdhani","Segoe UI",system-ui,sans-serif;--font-head:"Orbitron",sans-serif;--font-mono:"Share Tech Mono",Consolas,monospace;--bg:#07050f;--card:#0e0a20;--ink:#e6f7ff;--mut:#8f8ab8;--bd:#2b2060;--ac:#00f0ff;--ac2:#ff2bd6;--ok:#39ff88;--okb:rgba(57,255,136,.12);--bad:#ff3b6b;--badb:rgba(255,59,107,.14);--selb:rgba(0,240,255,.1);--sh:0 0 22px rgba(0,240,255,.12);color-scheme:dark}
 :root.alt{--ac:#fcee09;--ac2:#ff2bd6;--selb:rgba(252,238,9,.1);--sh:0 0 22px rgba(252,238,9,.12)}
 body{font-family:var(--font-body);font-weight:500;font-size:17px;background-color:var(--bg);background-image:linear-gradient(color-mix(in srgb,var(--ac) 7%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--ac) 7%,transparent) 1px,transparent 1px);background-size:44px 44px}
 body::before,body::after{opacity:.28}
@@ -247,22 +245,8 @@ h1,h2,h3,.brand,.th b,.go,.btn,.pk b,.clock small{font-family:var(--font-head)}
 .ring div{font-family:var(--font-head);color:var(--c1)}
 .clock{border-radius:2px;border-color:#241a5a;background:#05030d}
 .clock .sg .on,.clock .colon i{filter:drop-shadow(0 0 5px var(--c1))}
-
-/* ---- fallbacks for older Windows/Linux browsers (no color-mix) ---- */
-@supports not (color:color-mix(in srgb,red,blue)){
-body{background-image:linear-gradient(rgba(0,240,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.07) 1px,transparent 1px)}
-.tc{box-shadow:inset 0 0 40px rgba(255,255,255,.07)}
-.tc::before{-webkit-text-stroke:1px rgba(255,255,255,.35)}
-.tc::after{background:linear-gradient(transparent,rgba(255,255,255,.12),transparent)}
-.tc em{border-color:rgba(255,255,255,.25)}
-.tag{background:rgba(0,240,255,.14)}
-.btn,.ghost{background:rgba(0,240,255,.07)}
-.opt:hover{background:rgba(0,240,255,.08)}
-.top{background:rgba(7,5,15,.85)}
-}
 </style></head>
-<body>
-<noscript><p style="padding:24px;font-family:sans-serif;color:#fff">Please turn on JavaScript to use the exam.</p></noscript><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
+<body><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
 <script>
 /* =====================================================================
    HOW THIS FILE IS ORGANISED  (search for the numbers below)
