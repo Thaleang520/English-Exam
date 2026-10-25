@@ -4,7 +4,7 @@
 <title>English Tenses Exam</title>
 <link rel="icon" type="image/png" href="Piece of Cake.png">
 <meta name="theme-color" content="#07050f">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300f0ff'/%3E%3Cstop%20offset='1'%20stop-color='%23ff2bd6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d='M0%200H52L64%2012V64H12L0%2052Z'%20fill='url(%23g)'/%3E%3Cpath%20d='M16%2017H48V26H36V50H28V26H16Z'%20fill='%2305030d'/%3E%3C/svg%3E">
+<!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300f0ff'/%3E%3Cstop%20offset='1'%20stop-color='%23ff2bd6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d='M0%200H52L64%2012V64H12L0%2052Z'%20fill='url(%23g)'/%3E%3Cpath%20d='M16%2017H48V26H36V50H28V26H16Z'%20fill='%2305030d'/%3E%3C/svg%3E"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap">
 <style>
 :root{--font-body:"Rajdhani","Segoe UI",system-ui,sans-serif;--font-head:"Orbitron",sans-serif;--font-mono:"Share Tech Mono",Consolas,monospace;color-scheme:light dark;--bg:#f3f4fb;--card:#ffffff;--ink:#1b1f3b;--mut:#6a7090;--bd:#e4e6f3;--ac:#5b5bf0;--ac2:#a259ff;--ok:#16a34a;--okb:#dcfce7;--bad:#dc2626;--badb:#fee2e2;--selb:#ebebff;--sh:0 10px 30px rgba(60,60,140,.12)}
@@ -378,7 +378,7 @@ body{min-height:100dvh}
 
 /* ---- logo picture (your PNG) ---- */
 .logo img{display:block;width:100%;height:100%;object-fit:contain}
-.logo:has(img){background:none;clip-path:none;box-shadow:none;width:46px;height:46px}
+.logo:has(img){background:none;clip-path:none;box-shadow:none;width:60px;height:60px}
 @media (max-width:640px){.logo:has(img){width:60px;height:60px}}
 @media (max-width:400px){.logo:has(img){width:60px;height:60px}}
 /* ---- two-letter logo ---- */
@@ -397,6 +397,30 @@ body{min-height:100dvh}
 @keyframes clockwarn{50%{box-shadow:inset 0 0 30px color-mix(in srgb,var(--c1) 70%,transparent)}}
 @media (min-width:641px){.foot .clock .sg{width:20px;height:36px}.foot .clock .colon{gap:11px}}
 @media (max-width:640px){.foot .clock{padding:6px 10px 6px 8px}.foot .clock::before{margin-right:6px;padding-right:7px;font-size:.55rem}}
+
+/* ================= SEARCH BAR (home page) ================= */
+.cta{margin-top:30px}
+.search{position:relative;display:flex;align-items:center;gap:12px;width:100%;max-width:520px;padding:0 16px;height:58px;border:2px solid transparent;
+  background:linear-gradient(#05030d,#05030d) padding-box,linear-gradient(90deg,var(--ac),var(--ac2)) border-box;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));
+  box-shadow:inset 0 0 22px color-mix(in srgb,var(--ac) 14%,transparent);transition:box-shadow .25s,filter .25s}
+.search:focus-within{box-shadow:inset 0 0 30px color-mix(in srgb,var(--ac) 32%,transparent);filter:drop-shadow(0 0 10px var(--ac))}
+.search svg{flex:none;width:22px;height:22px;fill:none;stroke:var(--ac);stroke-width:2.4;stroke-linecap:round;filter:drop-shadow(0 0 5px var(--ac))}
+.search input{all:unset;flex:1;min-width:0;height:100%;font-family:var(--font-mono);font-size:1.05rem;letter-spacing:.04em;color:var(--ink)}
+.search input::placeholder{color:var(--mut)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.search kbd{flex:none;font-family:var(--font-mono);font-size:.8rem;color:var(--ac);border:1px solid color-mix(in srgb,var(--ac) 50%,transparent);padding:2px 9px}
+@media (hover:none){.search kbd{display:none}}
+.tc[hidden]{display:none}
+.grid.filtered .tc:nth-child(even){margin-top:0}
+.none{text-align:center;color:var(--mut);font-family:var(--font-mono);padding:10px 0 60px}
+.none[hidden]{display:none}
+@media (max-width:640px){.cta{margin-top:20px}.search{height:52px;max-width:none}.search input{font-size:1rem}}
+
+/* ---- laptop: keep the bottom bar (with the clock) on screen while scrolling ---- */
+@media (min-width:641px){
+  .foot{position:sticky;bottom:0;z-index:9;margin:20px -16px 0;padding:10px 16px;background:rgba(7,5,15,.94);border-top:1px solid var(--ac);box-shadow:0 -6px 20px -10px var(--ac);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+}
 </style></head>
 <body><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
 <script>
@@ -537,11 +561,11 @@ function homeScreen(){
     ${CONFIG.chips.map((c,i)=>`<span class="chip k${i+1}">${c}</span>`).join("")}
     <span class="tag"><i class="pulse"></i>${CONFIG.tagLine}</span>
     <h1>${CONFIG.heroTitle}<br><span class="ul">${CONFIG.heroWord}</span></h1>
-    <div class="cta"><span class="cta-wrap"><button class="cta-btn" data-a="scroll"><span>Start practising</span><span class="cta-a">→</span></button></span><div class="clock badge">${clock(SECS)}<small>per page</small></div></div>
+    <div class="cta"><label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input id="q" type="search" placeholder="Search tenses…" autocomplete="off" spellcheck="false" aria-label="Search tenses"><kbd>/</kbd></label></div>
     <div class="stats">${stat(0,TENSES.length,"Tenses")}${stat(1,TOTAL,"Questions each")}${stat(2,TOTAL*TENSES.length,"Total questions")}</div>
   </div>
   <div class="grid">`+TENSES.map((T,k)=>{const b=best("best-"+T.id);
-    return `<button class="tc" style="${cv(T)};--d:${(k%2)*140}ms" data-n="${pad(k+1)}" data-a="open" data-id="${T.id}"><i class="shine"></i><small>Tense ${k+1}</small><h2>${T.name}</h2><p>${T.d}</p><em>${T.ex}</em><div class="row"><span>${b?"Best score "+b+"/"+TOTAL:TOTAL+" questions"}</span><span class="go">Start</span></div></button>`}).join("")+`</div>`;
+    return `<button class="tc" style="${cv(T)};--d:${(k%2)*140}ms" data-n="${pad(k+1)}" data-a="open" data-id="${T.id}"><i class="shine"></i><small>Tense ${k+1}</small><h2>${T.name}</h2><p>${T.d}</p><em>${T.ex}</em><div class="row"><span>${b?"Best score "+b+"/"+TOTAL:TOTAL+" questions"}</span><span class="go">Start</span></div></button>`}).join("")+`</div><p class="none" id="none" hidden>No tenses found. Try another word.</p>`;
   effects();scrollTo(0,0);
 }
 
@@ -655,6 +679,17 @@ document.addEventListener("pointermove",e=>{          // 3D tilt of cards under 
 document.addEventListener("pointerout",e=>{const c=e.target.closest&&e.target.closest(".tc");
   if(c&&!c.contains(e.relatedTarget)){c.style.removeProperty("--rx");c.style.removeProperty("--ry")}});
 
+function filterTenses(v){                          // search bar: hide cards that do not match
+  v=v.trim().toLowerCase();let n=0;
+  document.querySelectorAll(".tc").forEach((c,i)=>{const T=TENSES[i];
+    const hit=!v||(T.name+" "+T.d+" "+T.ex).toLowerCase().includes(v);c.hidden=!hit;if(hit)n++});
+  const g=document.querySelector(".grid"),no=document.getElementById("none");
+  if(g)g.classList.toggle("filtered",!!v);if(no)no.hidden=n>0;
+}
+document.addEventListener("input",e=>{if(e.target.id=="q")filterTenses(e.target.value)});
+document.addEventListener("keydown",e=>{const q=document.getElementById("q");        // press / to jump to the search bar
+  if(e.key=="/"&&q&&document.activeElement!==q){e.preventDefault();q.focus()}
+  else if(e.key=="Escape"&&q&&document.activeElement===q){q.value="";filterTenses("");q.blur()}});
 function route(){const id=location.hash.slice(1);id?openExam(id):homeScreen()}   // #ps opens Present Simple, empty = home
 addEventListener("hashchange",route);route();
 </script></body></html>
