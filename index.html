@@ -384,6 +384,19 @@ body{min-height:100dvh}
 /* ---- two-letter logo ---- */
 .logo{font-size:.95rem;letter-spacing:-.02em}
 @media (max-width:640px){.logo{font-size:.8rem}}
+
+/* ================= BOTTOM CLOCK (next to Next / Submit) ================= */
+.foot .clock{
+  position:relative;gap:4px;padding:8px 16px 8px 14px;border:2px solid transparent;border-radius:0;
+  background:linear-gradient(#05030d,#05030d) padding-box,linear-gradient(135deg,var(--c1),var(--c2,var(--ac2))) border-box;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  box-shadow:inset 0 0 18px color-mix(in srgb,var(--c1) 28%,transparent);
+  transition:box-shadow .3s}
+.foot .clock::before{content:"TIME";align-self:stretch;display:flex;align-items:center;margin-right:8px;padding-right:10px;border-right:1px solid color-mix(in srgb,var(--c1) 45%,transparent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.2em;color:var(--c1);opacity:.85;writing-mode:vertical-rl;transform:rotate(180deg)}
+.foot .clock.low{animation:clockwarn 1s ease-in-out infinite}
+@keyframes clockwarn{50%{box-shadow:inset 0 0 30px color-mix(in srgb,var(--c1) 70%,transparent)}}
+@media (min-width:641px){.foot .clock .sg{width:20px;height:36px}.foot .clock .colon{gap:11px}}
+@media (max-width:640px){.foot .clock{padding:6px 10px 6px 8px}.foot .clock::before{margin-right:6px;padding-right:7px;font-size:.55rem}}
 </style></head>
 <body><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
 <script>
@@ -408,7 +421,7 @@ const CONFIG={
   yellowAtPercent:70,      // timer is YELLOW below this %, GREEN above it
   brand:"PIECE OF CAKE", logoLetter:"PC",
   logoImages:["Piece of Cake.png"],   // your picture, saved next to this file (first name that exists is used). If none exists the letters above are shown
-  navLabel:"v2.0 // Grammar exam",
+  navLabel:"v2.0",
   tagLine:"System online // Grammar practice",
   heroTitle:"Master English", heroWord:"Tenses",
   chips:["I play","She is playing","They played","We will play"]   // floating words (wide screens)
