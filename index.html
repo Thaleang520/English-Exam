@@ -478,6 +478,34 @@ body{min-height:100dvh}
 .intro.enter>:nth-child(9){animation-delay:.62s}
 .intro.enter>:nth-child(10){animation-delay:.7s}
 @media (max-width:640px){.intro{padding:28px 14px 24px}.intro .sub{font-size:1rem}.mini{gap:8px}.mini b{font-size:1.5rem}.mini span{font-size:.62rem}.exq{font-size:.88rem}}
+
+/* ---- clock + Home button together at the bottom of the exam page ---- */
+.ck{display:flex;align-items:center;gap:10px}
+.ck .btn{min-height:46px;padding:0 18px}
+@media (max-width:640px){.ck{justify-content:center;gap:8px}.ck:last-child{grid-column:1/-1}.ck .btn{padding:0 14px}}
+
+/* ---- phone: bottom bar = page dots on top, then clock (left) | Home | Next in one row ---- */
+@media (max-width:640px){
+  .ck{display:contents}
+  .foot{grid-template-columns:auto 1fr 1fr;align-items:center}
+  .foot:not(:has(.btn.p)){grid-template-columns:auto 1fr}
+  .ck .btn{width:100%;min-height:46px;padding:0 8px}
+  .foot .clock{justify-self:start}
+}
+
+/* ---- Home and Next are exactly as tall as the clock ---- */
+.ck{align-items:stretch}
+.ck .btn,.foot>.btn.p{min-height:0;align-self:stretch}
+.foot .clock{align-self:stretch}
+@media (max-width:640px){
+  .foot{align-items:stretch}
+  .dots{align-items:center}
+  .ck .btn,.foot>.btn.p{min-height:0;align-self:stretch}
+}
+
+/* results screen: no Previous / Next buttons, only the page numbers */
+.foot.done{justify-content:center}
+.foot.done>span{display:none}
 </style></head>
 <body><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
 <script>
@@ -630,8 +658,8 @@ function introScreen(){            // the screen with the Start button and page 
   const T=S.T,sel=S.sel,fresh=S.fresh;S.fresh=false;
   const pick=(v,label,small)=>`<button class="pk ${sel===v?"on":""}" data-a="sel" data-v="${v}"><b>${label}</b><small>${small}</small></button>`;
   const rules=sel=="all"
-   ?[`${TOTAL} questions on ${CONFIG.pages} pages, ${CONFIG.perPage} per page`,`You have ${MINUTES} minutes for each page`,"When time is up, the next page opens by itself","The exam ends by itself when time runs out on the last page","You cannot go back to a finished page","After each answer you see if it is correct or wrong"]
-   :[`${CONFIG.perPage} questions on page ${sel+1}`,`You have ${MINUTES} minutes for this page`,"When time is up, the exam ends and shows your score","After each answer you see if it is correct or wrong"];
+   ?[`${TOTAL} questions on ${CONFIG.pages} pages, ${CONFIG.perPage} per page`,`You have ${MINUTES} minutes for each page`,"When time is up, the next page opens by itself","The exam ends when time runs out on the last page, or when you answer every question on it","You cannot go back to a finished page","After each answer you see if it is correct or wrong"]
+   :[`${CONFIG.perPage} questions on page ${sel+1}`,`You have ${MINUTES} minutes for this page`,"The exam ends when time is up, or when you answer every question","After each answer you see if it is correct or wrong"];
   app.innerHTML=`<div style="${cv(T)}"><div class="th" style="padding-top:6px"><button class="ghost" data-a="home">← Home</button></div>
   <div class="intro${fresh?" enter":""}"><span class="tag">Ready?</span><h2>${T.name} Exam</h2><p class="sub">${T.d}</p><div class="exq">${T.ex}</div>
   <div class="mini"><div><b>${sel=="all"?TOTAL:CONFIG.perPage}</b><span>Questions</span></div><div><b>${sel=="all"?CONFIG.pages:1}</b><span>${sel=="all"?"Pages":"Page"}</span></div><div><b>${MINUTES}</b><span>Min per page</span></div></div>
@@ -665,11 +693,11 @@ function examScreen(){
       return `<button class="opt ${c}" data-a="pick" data-n="${n}" data-j="${j}"><span class="l">${"ABCD"[j]}</span>${o}</button>`}).join("")+`</div>`+
     (show?`<div class="fb ${a===q.a?"good":"no"}">${a===undefined?"Not answered. Correct answer: "+q.o[q.a]:a===q.a?"Correct! Well done.":"Wrong. The correct answer is: "+q.o[q.a]}</div>`:"")+`</section>`;
   }
-  h+=`<div class="foot">${done?`<button class="btn" data-a="prev" ${p==first?"disabled":""}>← Previous</button>`:"<span></span>"}<div class="dots">`+
+  h+=`<div class="foot${done?" done":""}"><span></span><div class="dots">`+
     S.list.map(i=>{const full=done?[...Array(CONFIG.perPage).keys()].every(k=>ans[i*CONFIG.perPage+k]!==undefined):i<p;
       return `<button class="btn dot ${i==p?"on":full?"full":done?"":"todo"}" ${done?`data-a="go" data-p="${i}"`:'tabindex="-1"'}>${i+1}</button>`}).join("")+`</div>`+
-    (done?"":`<div id="clk2" class="clock ${timerColor(left)}">${clock(left)}</div>`)+
-    (p<S.last?`<button class="btn p" data-a="next">Next →</button>`:done?`<button class="btn" disabled>Next →</button>`:"")+`</div></div>`;
+    `<div class="ck"><div id="clk2" class="clock ${timerColor(left)}">${clock(left)}</div><button class="btn" data-a="home">← Home</button></div>`+
+    (!done&&p<S.last?`<button class="btn p" data-a="next">Next →</button>`:"")+`</div></div>`;
   app.innerHTML=h;
 }
 
@@ -696,6 +724,13 @@ function tick(){                                   // runs 4 times a second whil
 function nextPage(timeUp){                         // go to next page, or finish after the last one
   if(S.p<S.last){S.note=timeUp?`Time is up for page ${S.p+1}. Page ${S.p+2} has started.`:"";S.p++;S.end=Date.now()+SECS*1000;examScreen();scrollTo(0,0)}
   else{S.timeout=timeUp;finishExam()}
+}
+function autoFinish(){                             // last page fully answered -> end the exam after a short pause (so you still see the last answer)
+  if(S.done||S.fin||S.p!==S.last)return;
+  const base=S.last*CONFIG.perPage;
+  if(![...Array(CONFIG.perPage).keys()].every(k=>S.ans[base+k]!==undefined))return;
+  S.fin=true;S.note="All questions answered. Finishing the exam…";const me=S;
+  setTimeout(()=>{if(S===me&&!S.done)finishExam()},1500);
 }
 function finishExam(){
   clearInterval(S.timer);S.left=secLeft();S.done=true;S.p=S.list[0];
@@ -741,7 +776,7 @@ document.addEventListener("click",e=>{
   if(!S)return;
   if(a=="sel"){S.sel=b.dataset.v=="all"?"all":+b.dataset.v;examScreen();return}
   if(a=="start"){startWithFx(b,e);return}
-  if(a=="pick"){const n=+b.dataset.n;if(S.done||S.ans[n]!==undefined)return;S.ans[n]=+b.dataset.j;const y=scrollY;examScreen();scrollTo(0,y);return}
+  if(a=="pick"){const n=+b.dataset.n;if(S.done||S.ans[n]!==undefined)return;S.ans[n]=+b.dataset.j;autoFinish();const y=scrollY;examScreen();scrollTo(0,y);return}
   if(a=="submit"){finishExam();return}
   if(a=="retry"){openExam(S.T.id,S.run+1,S.sel);return}
   if(a=="go")S.p=+b.dataset.p;
