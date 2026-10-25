@@ -2,6 +2,8 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>English Tenses Exam</title>
+<meta name="theme-color" content="#07050f">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300f0ff'/%3E%3Cstop%20offset='1'%20stop-color='%23ff2bd6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d='M0%200H52L64%2012V64H12L0%2052Z'%20fill='url(%23g)'/%3E%3Cpath%20d='M16%2017H48V26H36V50H28V26H16Z'%20fill='%2305030d'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap">
 <style>
 :root{--font-body:"Rajdhani","Segoe UI",system-ui,sans-serif;--font-head:"Orbitron",sans-serif;--font-mono:"Share Tech Mono",Consolas,monospace;color-scheme:light dark;--bg:#f3f4fb;--card:#ffffff;--ink:#1b1f3b;--mut:#6a7090;--bd:#e4e6f3;--ac:#5b5bf0;--ac2:#a259ff;--ok:#16a34a;--okb:#dcfce7;--bad:#dc2626;--badb:#fee2e2;--selb:#ebebff;--sh:0 10px 30px rgba(60,60,140,.12)}
@@ -245,6 +247,141 @@ h1,h2,h3,.brand,.th b,.go,.btn,.pk b,.clock small{font-family:var(--font-head)}
 .ring div{font-family:var(--font-head);color:var(--c1)}
 .clock{border-radius:2px;border-color:#241a5a;background:#05030d}
 .clock .sg .on,.clock .colon i{filter:drop-shadow(0 0 5px var(--c1))}
+
+/* ================= MOBILE ================= */
+html{-webkit-text-size-adjust:100%}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+body{min-height:100dvh}
+@media (hover:none){
+  .tc:hover,.tc:focus-visible{transform:none}
+  .tc::after{display:none}
+  .opt:hover,.pk:hover,.btn:hover,.ghost:hover{transform:none}
+  .btn:hover,.ghost:hover{background:color-mix(in srgb,var(--ac) 7%,transparent);color:var(--ac)}
+  .btn.p:hover{color:#05030d;filter:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  body::before,body::after{width:260px;height:260px;filter:blur(60px)}
+  main{padding:12px max(14px,env(safe-area-inset-right)) 28px max(14px,env(safe-area-inset-left))}
+  .theme{top:calc(8px + env(safe-area-inset-top));right:8px;width:38px;height:38px}
+  .nav{padding-right:48px}
+  .logo{width:34px;height:34px;font-size:1rem}
+  .brand{font-size:1rem}
+  .hero{padding:22px 0 28px}
+  .hero h1{font-size:clamp(1.4rem,6.8vw,2rem);letter-spacing:.01em}
+  .hero p{font-size:1rem}
+  .cta{flex-direction:column;gap:14px;margin-top:20px}
+  .cta .btn.big{width:100%;max-width:340px}
+  .stats{gap:8px;margin-top:22px}
+  .stats div{flex:1 1 90px;padding:10px 12px}
+  .stats b{font-size:1.4rem}
+  .grid{grid-template-columns:1fr;gap:18px;padding-bottom:30px}
+  .tc{min-height:250px;padding:22px}
+  .tc::before{font-size:6.5rem}
+  .tc h2{margin:40px 0 6px;font-size:1.15rem}
+  /* exam top bar */
+  .top{margin:0 -14px 14px;padding:calc(10px + env(safe-area-inset-top)) 14px 8px}
+  .th{gap:8px;padding-right:44px;margin-bottom:8px}
+  .th b{font-size:.95rem}
+  .th .ghost{padding:8px 10px;font-size:.72rem}
+  .pct{font-size:.7rem}
+  /* questions */
+  .q{padding:14px}
+  .q p{font-size:1rem;margin-bottom:12px}
+  .opts{grid-template-columns:1fr;gap:8px}
+  .opt{min-height:50px;font-size:1rem;padding:10px 12px}
+  /* bottom navigation stays on screen */
+  .foot{position:sticky;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px -14px 0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(7,5,15,.94);border-top:1px solid var(--ac);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .foot>span{display:none}
+  .foot>span:first-child~.btn{grid-column:1/-1}
+  .foot>.btn{width:100%;min-height:46px}
+  .dots{grid-column:1/-1;order:-1;justify-content:center;gap:6px}
+  .dot{width:40px;height:38px}
+  /* start screen */
+  .intro{padding:26px 14px;margin-top:14px}
+  .clock.big{padding:12px 14px}
+  .clock.big .sg{width:28px;height:48px}
+  .pks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .pk:first-child{grid-column:1/-1}
+  .pk{min-width:0;padding:10px 4px}
+  .pk b{font-size:.78rem}
+  .intro .btn.big{width:100%}
+  .intro ul{font-size:.95rem}
+  /* results */
+  .res{padding:20px 14px}
+  .ring{width:128px;height:128px}
+  .ring div{width:100px;height:100px;font-size:1.6rem}
+  .res .b .btn{flex:1 1 140px}
+}
+@media (max-width:360px){.th b{display:none}.hero h1{font-size:1.35rem}}
+
+/* ================= SMALL PHONES (about 380px wide) ================= */
+@media (max-width:400px){
+  main{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+  .tag{display:inline-block;max-width:100%;font-size:.66rem;line-height:1.35;letter-spacing:.04em;padding:7px 14px}
+  .hero{padding:18px 0 24px}
+  .hero h1{font-size:clamp(1.2rem,5.9vw,1.55rem);letter-spacing:0}
+  .hero p{font-size:.95rem}
+  .stats b{font-size:1.25rem}
+  .stats span{font-size:.7rem}
+  .tc{padding:20px;min-height:235px}
+  .tc h2{font-size:1.05rem;margin-top:34px}
+  .tc p{font-size:.9rem}
+  .tc em{font-size:.84rem;padding:9px 11px}
+  .top{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .th{gap:6px}
+  .th .ghost{padding:8px 9px}
+  .th b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.9rem}
+  .clock{padding:5px 7px}
+  .sg{width:13px;height:23px}
+  .colon{gap:7px;margin:0 2px}
+  .colon i{width:3px;height:3px}
+  .pct{font-size:.66rem}
+  .q{padding:12px}
+  .q p{font-size:.98rem}
+  .n{width:26px;height:26px;margin-right:8px}
+  .opt{font-size:.95rem;padding:9px 10px;gap:8px}
+  .foot{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .dot{width:38px}
+  .intro{padding:22px 12px}
+  .intro h2{font-size:1.35rem;margin-bottom:16px}
+  .pk b{font-size:.74rem}
+  .pk small{font-size:.66rem}
+  .btn.big{padding:14px 18px;font-size:.88rem}
+  .clock.big{padding:10px 12px}
+  .clock.big .sg{width:26px;height:44px}
+  .res h3{font-size:1.1rem}
+
+}
+
+/* ================= START PRACTISING BUTTON ================= */
+.cta-wrap{display:inline-block;filter:drop-shadow(0 0 12px var(--ac))}
+.cta-btn{all:unset;box-sizing:border-box;position:relative;overflow:hidden;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:16px;padding:19px 38px;font-family:var(--font-head);font-weight:900;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:#05030d;background:linear-gradient(90deg,var(--ac),var(--ac2));clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px));transition:transform .2s,filter .2s;-webkit-tap-highlight-color:transparent}
+.cta-a{display:inline-block;font-size:1.3rem;line-height:1;animation:ctanudge 1.3s ease-in-out infinite}
+@keyframes ctanudge{50%{transform:translateX(7px)}}
+.cta-btn:hover{transform:scale(1.06);filter:brightness(1.12)}
+.cta-btn:active{transform:scale(.96)}
+.cta-btn:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+@media (max-width:640px){.cta .cta-wrap{width:100%;max-width:340px}.cta-btn{width:100%;padding:17px 18px;font-size:.88rem;letter-spacing:.1em}}
+@media (hover:none){.cta-btn:hover{transform:none;filter:none}}
+
+/* ================= START BUTTON (second page) ================= */
+.intro .cta-wrap{display:block;width:100%;max-width:380px;margin:6px auto 0}
+.intro .cta-btn{width:100%}
+.start-btn{justify-content:space-between;padding:16px 30px}
+.st{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left}
+.st b{font-size:1.05rem;letter-spacing:.12em}
+.st small{font-family:var(--font-mono);font-size:.7rem;font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.8}
+@media (max-width:400px){.start-btn{padding:14px 20px}.st b{font-size:.92rem;letter-spacing:.08em}}
+
+/* ---- logo picture (your PNG) ---- */
+.logo img{display:block;width:100%;height:100%;object-fit:contain}
+.logo:has(img){background:none;clip-path:none;box-shadow:none;width:46px;height:46px}
+@media (max-width:640px){.logo:has(img){width:80px;height:80px}}
+@media (max-width:400px){.logo:has(img){width:80px;height:80px}}
+/* ---- two-letter logo ---- */
+.logo{font-size:.95rem;letter-spacing:-.02em}
+@media (max-width:640px){.logo{font-size:.8rem}}
 </style></head>
 <body><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
 <script>
@@ -267,11 +404,11 @@ const CONFIG={
   secondsPerPage:120,      // time for ONE page (120 = 2 minutes)
   redAtPercent:30,         // timer is RED when this % (or less) of the time is left
   yellowAtPercent:70,      // timer is YELLOW below this %, GREEN above it
-  brand:"TenseMaster", logoLetter:"T",
-  navLabel:"v2.077 // Grammar exam",
+  brand:"PIECE OF CAKE", logoLetter:"PC",
+  logoImages:["Piece of Cake.png"],   // your picture, saved next to this file (first name that exists is used). If none exists the letters above are shown
+  navLabel:"v2.0 // Grammar exam",
   tagLine:"System online // Grammar practice",
   heroTitle:"Master English", heroWord:"Tenses",
-  heroText:"Choose a tense, answer {total} questions over {pages} pages, and watch your score grow.",
   chips:["I play","She is playing","They played","We will play"]   // floating words (wide screens)
 };
 const TOTAL=CONFIG.pages*CONFIG.perPage, SECS=CONFIG.secondsPerPage;
@@ -371,18 +508,21 @@ const best=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const pageOf=i=>Math.floor(i/CONFIG.perPage);
 const pageNums=[...Array(CONFIG.pages).keys()];
 
+function nextLogo(img){                 // try the next picture name, or show the letters
+  const i=+img.dataset.i+1;
+  if(i<CONFIG.logoImages.length){img.dataset.i=i;img.src=CONFIG.logoImages[i]}
+  else img.replaceWith(CONFIG.logoLetter);
+}
 function homeScreen(){
   if(S)clearInterval(S.timer);S=null;
-  const text=CONFIG.heroText.replace("{total}",TOTAL).replace("{pages}",CONFIG.pages);
   const stat=(i,n,label)=>`<div style="--i:${i}"><b data-to="${n}">0</b><span>${label}</span></div>`;
   app.innerHTML=`
-  <header class="nav"><div class="brand"><span class="logo">${CONFIG.logoLetter}</span><b>${CONFIG.brand}</b></div><span class="navtag">${CONFIG.navLabel}</span></header>
+  <header class="nav"><div class="brand"><span class="logo"><img src="${CONFIG.logoImages[0]}" data-i="0" alt="" onerror="nextLogo(this)"></span><b>${CONFIG.brand}</b></div><span class="navtag">${CONFIG.navLabel}</span></header>
   <div class="hero">
     ${CONFIG.chips.map((c,i)=>`<span class="chip k${i+1}">${c}</span>`).join("")}
     <span class="tag"><i class="pulse"></i>${CONFIG.tagLine}</span>
     <h1>${CONFIG.heroTitle}<br><span class="ul">${CONFIG.heroWord}</span></h1>
-    <p>${text}</p>
-    <div class="cta"><button class="btn p big" data-a="scroll">Start practising</button><div class="clock badge">${clock(SECS)}<small>per page</small></div></div>
+    <div class="cta"><span class="cta-wrap"><button class="cta-btn" data-a="scroll"><span>Start practising</span><span class="cta-a">→</span></button></span><div class="clock badge">${clock(SECS)}<small>per page</small></div></div>
     <div class="stats">${stat(0,TENSES.length,"Tenses")}${stat(1,TOTAL,"Questions each")}${stat(2,TOTAL*TENSES.length,"Total questions")}</div>
   </div>
   <div class="grid">`+TENSES.map((T,k)=>{const b=best("best-"+T.id);
@@ -401,7 +541,7 @@ function introScreen(){            // the screen with the Start button and page 
   <div class="pkh">Choose a page</div>
   <div class="pks">${pick("all","All pages",TOTAL+" questions")}${pageNums.map(i=>pick(i,"Page "+(i+1),"Q "+(i*CONFIG.perPage+1)+"–"+(i+1)*CONFIG.perPage)).join("")}</div>
   <ul>${rules.map(r=>`<li>${r}</li>`).join("")}</ul>
-  <button class="btn p big" data-a="start">${sel=="all"?"Start Full Exam":"Start Page "+(sel+1)}</button></div></div>`;
+  <span class="cta-wrap"><button class="cta-btn start-btn" data-a="start"><span class="st"><b>${sel=="all"?"Start Full Exam":"Start Page "+(sel+1)}</b><small>${sel=="all"?TOTAL+" questions · "+MINUTES+" min per page":CONFIG.perPage+" questions · "+MINUTES+" min"}</small></span><span class="cta-a">→</span></button></span></div></div>`;
 }
 
 function examScreen(){
