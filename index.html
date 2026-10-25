@@ -294,7 +294,8 @@ body{min-height:100dvh}
   /* bottom navigation stays on screen */
   .foot{position:sticky;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px -14px 0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(7,5,15,.94);border-top:1px solid var(--ac);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
   .foot>span{display:none}
-  .foot>span:first-child~.btn{grid-column:1/-1}
+  .foot>span:first-child~.btn{grid-column:auto}
+  .foot>.clock{justify-self:center;align-self:center}
   .foot>.btn{width:100%;min-height:46px}
   .dots{grid-column:1/-1;order:-1;justify-content:center;gap:6px}
   .dot{width:40px;height:38px}
@@ -378,8 +379,8 @@ body{min-height:100dvh}
 /* ---- logo picture (your PNG) ---- */
 .logo img{display:block;width:100%;height:100%;object-fit:contain}
 .logo:has(img){background:none;clip-path:none;box-shadow:none;width:46px;height:46px}
-@media (max-width:640px){.logo:has(img){width:80px;height:80px}}
-@media (max-width:400px){.logo:has(img){width:80px;height:80px}}
+@media (max-width:640px){.logo:has(img){width:60px;height:60px}}
+@media (max-width:400px){.logo:has(img){width:60px;height:60px}}
 /* ---- two-letter logo ---- */
 .logo{font-size:.95rem;letter-spacing:-.02em}
 @media (max-width:640px){.logo{font-size:.8rem}}
@@ -551,7 +552,7 @@ function examScreen(){
   const left=done?S.left:secLeft(), first=S.list[0];
   let h=`<div class="top" style="${cv(T)}"><div class="th"><button class="ghost" data-a="home">← Home</button>
     <div style="flex:1;min-width:0"><b>${T.name}</b><br><small>Page ${p+1} of ${CONFIG.pages} · Questions ${p*CONFIG.perPage+1}–${(p+1)*CONFIG.perPage}</small></div>
-    <div id="clk" class="clock ${timerColor(left)}">${clock(left)}</div></div>
+    </div>
     <div class="bar"><i style="width:${cnt/tot*100}%"></i></div><div class="pct">${cnt}/${tot} answered · ${MINUTES} minutes per page</div></div>
     <div style="${cv(T)}">${S.note&&!done?`<div class="note">${S.note}</div>`:""}`;
   if(done){                                       // result box
@@ -571,6 +572,7 @@ function examScreen(){
   h+=`<div class="foot">${done?`<button class="btn" data-a="prev" ${p==first?"disabled":""}>← Previous</button>`:"<span></span>"}<div class="dots">`+
     S.list.map(i=>{const full=done?[...Array(CONFIG.perPage).keys()].every(k=>ans[i*CONFIG.perPage+k]!==undefined):i<p;
       return `<button class="btn dot ${i==p?"on":full?"full":done?"":"todo"}" ${done?`data-a="go" data-p="${i}"`:'tabindex="-1"'}>${i+1}</button>`}).join("")+`</div>`+
+    (done?"":`<div id="clk2" class="clock ${timerColor(left)}">${clock(left)}</div>`)+
     (p<S.last?`<button class="btn p" data-a="next">Next →</button>`:done?`<button class="btn" disabled>Next →</button>`:`<button class="btn p" data-a="submit">Submit (${cnt}/${tot})</button>`)+`</div></div>`;
   app.innerHTML=h;
 }
@@ -590,8 +592,9 @@ function startExam(){
 }
 function tick(){                                   // runs 4 times a second while the timer is on
   if(!S||S.done)return;
-  const l=secLeft(),c=document.getElementById("clk");
-  if(c){c.innerHTML=clock(l);c.classList.toggle("low",l<=RED_AT);c.classList.toggle("mid",l>RED_AT&&l<=YELLOW_AT)}
+  const l=secLeft();
+  ["clk","clk2"].forEach(id=>{const c=document.getElementById(id);   // top clock + clock next to Next/Submit
+    if(c){c.innerHTML=clock(l);c.classList.toggle("low",l<=RED_AT);c.classList.toggle("mid",l>RED_AT&&l<=YELLOW_AT)}});
   if(l<=0)nextPage(true);
 }
 function nextPage(timeUp){                         // go to next page, or finish after the last one
