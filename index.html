@@ -421,6 +421,36 @@ body{min-height:100dvh}
 @media (min-width:641px){
   .foot{position:sticky;bottom:0;z-index:9;margin:20px -16px 0;padding:10px 16px;background:rgba(7,5,15,.94);border-top:1px solid var(--ac);box-shadow:0 -6px 20px -10px var(--ac);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 }
+
+/* ---- card corner: your picture instead of the big number (01-12) ---- */
+.tc::before{content:"";width:8.5rem;height:8.5rem;top:-6px;right:-4px;-webkit-text-stroke:0;background:url("Piece%20of%20Cake.png") center/contain no-repeat;opacity:.6;filter:drop-shadow(0 0 10px var(--c1))}
+@media (max-width:640px){.tc::before{width:6.5rem;height:6.5rem}}
+
+/* ================= CARD CLICK ANIMATION ================= */
+.tc.pick{animation:pickpop .56s cubic-bezier(.3,1.4,.5,1) forwards!important;z-index:5}
+@keyframes pickpop{0%{scale:1;rotate:0deg}30%{scale:.94;rotate:-1deg}100%{scale:1.1;rotate:1.5deg;opacity:1}}
+.grid.leaving .tc:not(.pick){animation:fadeaway .4s ease forwards!important;pointer-events:none}
+@keyframes fadeaway{to{opacity:0;scale:.88;filter:blur(4px)}}
+.wipe{position:fixed;inset:0;z-index:100;display:grid;place-items:center;pointer-events:all;
+  background:linear-gradient(135deg,var(--c1),var(--c2));clip-path:circle(0 at var(--x) var(--y));
+  animation:wipein .56s cubic-bezier(.6,.05,.3,1) forwards}
+.wipe span{font-family:var(--font-head);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(1.3rem,5vw,2.6rem);text-align:center;padding:0 20px;color:#05030d;opacity:0;animation:wipetxt .56s ease .2s forwards}
+.wipe.out{animation:wipeout .5s ease forwards;clip-path:circle(160vmax at var(--x) var(--y))}
+@keyframes wipein{to{clip-path:circle(160vmax at var(--x) var(--y))}}
+@keyframes wipetxt{to{opacity:1;letter-spacing:.2em}}
+@keyframes wipeout{to{opacity:0}}
+
+/* ================= SECOND PAGE (start screen) ANIMATION ================= */
+.intro.enter>*{animation:up .65s cubic-bezier(.2,.9,.3,1) both}
+.intro.enter>:nth-child(1){animation-delay:.05s}.intro.enter>:nth-child(2){animation-delay:.12s}
+.intro.enter>:nth-child(3){animation-delay:.2s;animation-name:pop}.intro.enter>:nth-child(4){animation-delay:.3s}
+.intro.enter>:nth-child(5){animation-delay:.36s}.intro.enter>:nth-child(6){animation-delay:.46s}
+.intro.enter>:nth-child(7){animation-delay:.55s}
+.pk{transition:all .2s,scale .2s}.pk:active{scale:.94}
+.cta-btn.pressed{animation:pickpop .5s cubic-bezier(.3,1.4,.5,1) forwards}
+
+/* last page has no Submit button: the clock stands alone and the exam ends when it reaches 00:00 */
+@media (max-width:640px){.foot>.clock:last-child{grid-column:1/-1;justify-self:center}}
 </style></head>
 <body><button class="theme" data-a="theme" aria-label="Toggle dark mode"></button><main id="app"></main>
 <script>
@@ -445,7 +475,7 @@ const CONFIG={
   yellowAtPercent:70,      // timer is YELLOW below this %, GREEN above it
   brand:"PIECE OF CAKE", logoLetter:"PC",
   logoImages:["Piece of Cake.png"],   // your picture, saved next to this file (first name that exists is used). If none exists the letters above are shown
-  navLabel:"v2.0",
+  navLabel:"v2.0 // Grammar exam",
   tagLine:"System online // Grammar practice",
   heroTitle:"Master English", heroWord:"Tenses",
   chips:["I play","She is playing","They played","We will play"]   // floating words (wide screens)
@@ -570,13 +600,13 @@ function homeScreen(){
 }
 
 function introScreen(){            // the screen with the Start button and page picker
-  const T=S.T,sel=S.sel;
+  const T=S.T,sel=S.sel,fresh=S.fresh;S.fresh=false;
   const pick=(v,label,small)=>`<button class="pk ${sel===v?"on":""}" data-a="sel" data-v="${v}"><b>${label}</b><small>${small}</small></button>`;
   const rules=sel=="all"
-   ?[`${TOTAL} questions on ${CONFIG.pages} pages, ${CONFIG.perPage} per page`,`You have ${MINUTES} minutes for each page`,"When time is up, the next page opens by itself","You cannot go back to a finished page","After each answer you see if it is correct or wrong"]
+   ?[`${TOTAL} questions on ${CONFIG.pages} pages, ${CONFIG.perPage} per page`,`You have ${MINUTES} minutes for each page`,"When time is up, the next page opens by itself","The exam ends by itself when time runs out on the last page","You cannot go back to a finished page","After each answer you see if it is correct or wrong"]
    :[`${CONFIG.perPage} questions on page ${sel+1}`,`You have ${MINUTES} minutes for this page`,"When time is up, the exam ends and shows your score","After each answer you see if it is correct or wrong"];
   app.innerHTML=`<div style="${cv(T)}"><div class="th" style="padding-top:6px"><button class="ghost" data-a="home">← Home</button></div>
-  <div class="intro"><span class="tag">Ready?</span><h2>${T.name} Exam</h2><div class="clock big">${clock(SECS)}</div>
+  <div class="intro${fresh?" enter":""}"><span class="tag">Ready?</span><h2>${T.name} Exam</h2><div class="clock big">${clock(SECS)}</div>
   <div class="pkh">Choose a page</div>
   <div class="pks">${pick("all","All pages",TOTAL+" questions")}${pageNums.map(i=>pick(i,"Page "+(i+1),"Q "+(i*CONFIG.perPage+1)+"–"+(i+1)*CONFIG.perPage)).join("")}</div>
   <ul>${rules.map(r=>`<li>${r}</li>`).join("")}</ul>
@@ -610,7 +640,7 @@ function examScreen(){
     S.list.map(i=>{const full=done?[...Array(CONFIG.perPage).keys()].every(k=>ans[i*CONFIG.perPage+k]!==undefined):i<p;
       return `<button class="btn dot ${i==p?"on":full?"full":done?"":"todo"}" ${done?`data-a="go" data-p="${i}"`:'tabindex="-1"'}>${i+1}</button>`}).join("")+`</div>`+
     (done?"":`<div id="clk2" class="clock ${timerColor(left)}">${clock(left)}</div>`)+
-    (p<S.last?`<button class="btn p" data-a="next">Next →</button>`:done?`<button class="btn" disabled>Next →</button>`:`<button class="btn p" data-a="submit">Submit (${cnt}/${tot})</button>`)+`</div></div>`;
+    (p<S.last?`<button class="btn p" data-a="next">Next →</button>`:done?`<button class="btn" disabled>Next →</button>`:"")+`</div></div>`;
   app.innerHTML=h;
 }
 
@@ -620,7 +650,7 @@ const scoreOf=()=>S.Q.reduce((x,q,i)=>x+(S.list.includes(pageOf(i))&&S.ans[i]===
 function openExam(id,run,sel){                    // go to the start screen of a tense
   const T=TENSES.find(x=>x.id==id);if(!T)return homeScreen();
   if(S)clearInterval(S.timer);
-  S={T,run:run||0,sel:sel===undefined?"all":sel,p:0,ans:{},done:false,started:false};
+  S={T,run:run||0,sel:sel===undefined?"all":sel,p:0,ans:{},done:false,started:false,fresh:true};
   S.Q=build(T,S.run);examScreen();scrollTo(0,0);
 }
 function startExam(){
@@ -645,15 +675,43 @@ function finishExam(){
   examScreen();scrollTo(0,0);
 }
 
+/* ---- click animation on a tense card: card pops, others fade, colour wipe grows from the click, then the exam opens ---- */
+let leaving=false;
+function openWithFx(b,e){
+  if(leaving)return;
+  if(matchMedia("(prefers-reduced-motion:reduce)").matches){location.hash=b.dataset.id;return}
+  leaving=true;
+  const r=b.getBoundingClientRect(),x=e.clientX||r.left+r.width/2,y=e.clientY||r.top+r.height/2;
+  const T=TENSES.find(t=>t.id==b.dataset.id);
+  b.classList.add("pick");document.querySelector(".grid").classList.add("leaving");
+  const w=document.createElement("div");w.className="wipe";
+  w.style.cssText=`--x:${x}px;--y:${y}px;--c1:${T.c1};--c2:${T.c2}`;
+  w.innerHTML=`<span>${T.name}</span>`;document.body.appendChild(w);
+  setTimeout(()=>{location.hash=b.dataset.id;scrollTo(0,0);w.classList.add("out");
+    setTimeout(()=>{w.remove();leaving=false},500)},560);
+}
+
+function startWithFx(b,e){                          // second page: colour wipe, then the exam starts
+  if(leaving)return;
+  if(matchMedia("(prefers-reduced-motion:reduce)").matches){startExam();return}
+  leaving=true;
+  const r=b.getBoundingClientRect(),x=e.clientX||r.left+r.width/2,y=e.clientY||r.top+r.height/2,T=S.T;
+  b.classList.add("pressed");
+  const w=document.createElement("div");w.className="wipe";
+  w.style.cssText=`--x:${x}px;--y:${y}px;--c1:${T.c1};--c2:${T.c2}`;
+  w.innerHTML=`<span>Get ready!</span>`;document.body.appendChild(w);
+  setTimeout(()=>{startExam();w.classList.add("out");setTimeout(()=>{w.remove();leaving=false},500)},560);
+}
+
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
   if(a=="theme"){document.documentElement.classList.toggle("alt");return}            // switch neon colours
   if(a=="scroll"){document.querySelector(".grid").scrollIntoView({behavior:"smooth"});return}
-  if(a=="open"){location.hash=b.dataset.id;return}
+  if(a=="open"){openWithFx(b,e);return}
   if(a=="home"){location.hash="";if(!location.hash)homeScreen();return}
   if(!S)return;
   if(a=="sel"){S.sel=b.dataset.v=="all"?"all":+b.dataset.v;examScreen();return}
-  if(a=="start"){startExam();return}
+  if(a=="start"){startWithFx(b,e);return}
   if(a=="pick"){const n=+b.dataset.n;if(S.done||S.ans[n]!==undefined)return;S.ans[n]=+b.dataset.j;const y=scrollY;examScreen();scrollTo(0,y);return}
   if(a=="submit"){finishExam();return}
   if(a=="retry"){openExam(S.T.id,S.run+1,S.sel);return}
