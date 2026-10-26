@@ -184,9 +184,8 @@ body::after{animation:drift 20s ease-in-out infinite alternate-reverse}
    :root.alt is the second palette used by the round button in the top-right corner. */
 :root,:root:not([data-theme="light"]),:root[data-theme]{--font-body:"Rajdhani","Segoe UI",system-ui,sans-serif;--font-head:"Orbitron",sans-serif;--font-mono:"Share Tech Mono",Consolas,monospace;--bg:#07050f;--card:#0e0a20;--ink:#e6f7ff;--mut:#8f8ab8;--bd:#2b2060;--ac:#00f0ff;--ac2:#ff2bd6;--ok:#39ff88;--okb:rgba(57,255,136,.12);--bad:#ff3b6b;--badb:rgba(255,59,107,.14);--selb:rgba(0,240,255,.1);--sh:0 0 22px rgba(0,240,255,.12);color-scheme:dark}
 :root.alt{--ac:#fcee09;--ac2:#ff2bd6;--selb:rgba(252,238,9,.1);--sh:0 0 22px rgba(252,238,9,.12)}
-body{font-family:var(--font-body);font-weight:500;font-size:17px;background-color:var(--bg);background-image:linear-gradient(color-mix(in srgb,var(--ac) 7%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--ac) 7%,transparent) 1px,transparent 1px);background-size:44px 44px}
+body{font-family:var(--font-body);font-weight:500;font-size:17px;background-color:var(--bg)}
 body::before,body::after{opacity:.28}
-html::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px)}
 h1,h2,h3,.brand,.th b,.go,.btn,.pk b,.clock small{font-family:var(--font-head)}
 .tag,.navtag,.chip,.tc small,.tc em,.pct,.pkh,.stats span,.fb,.note{font-family:var(--font-mono)}
 ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:linear-gradient(var(--ac),var(--ac2))}
